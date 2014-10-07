@@ -1,0 +1,4 @@
+Certificate expires on Wed Feb 05 10:38:48 ICT 2042.
+Certificate fingerprints:
+MD5 : 2E:36:D1:C7:E3:68:81:81:E7:D8:E1:07:45:61:84:B7
+SHA1: 43:D8:46:5A:55:86:3F:D3:00:E1:B6:AF:E7:9A:E8:08:62:D4:5A:C6
