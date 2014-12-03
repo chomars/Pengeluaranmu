@@ -49,13 +49,17 @@ public class FormPengeluaranActivity extends Fragment {
 
 	private View v;
 	private String inputdate;
+	private String getNow;
 	@Override
 //	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
 
-         v = inflater.inflate(R.layout.activity_main, container, false);
+         v = inflater.inflate(R.layout.activity_pengeluaran, container, false);
         txtTanggal = (EditText) v.findViewById(R.id.tanggal);    
         btnSave = (Button) v.findViewById(R.id.button1);
+    	SimpleDateFormat now = new SimpleDateFormat("yyyy-MM-dd");
+		 getNow = now.format(Calendar.getInstance().getTime());
+		 txtTanggal.setText(getNow);
         final Calendar c = Calendar.getInstance();
         
         		mYear = c.get(Calendar.YEAR);
@@ -80,15 +84,23 @@ public class FormPengeluaranActivity extends Fragment {
 			DatabaseHandler db = new DatabaseHandler(getActivity());
 			EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
 			EditText description = (EditText) getActivity().findViewById(R.id.description);
-			int spending = Integer.parseInt(editText.getText().toString());
+			String SpendingText = editText.getText().toString();
+			
 			String descriptionText = description.getText().toString();
 			String type = "2";
 			String trxdate = txtTanggal.getText().toString();
+			if (descriptionText.equals("") || trxdate.equals("") || SpendingText.equals("") ) {
+				
+				Toast.makeText(getActivity(), "Harap diisi", Toast.LENGTH_SHORT)
+				.show();
+			} else {
+				int spending = Integer.parseInt(SpendingText);
 			db.addSpending(new Spending("Chomars", spending, descriptionText,inputdate ,
 					type,trxdate));
 			Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
 			clear();
 			}
+		}
        });
         
         return v;
@@ -102,7 +114,7 @@ public class FormPengeluaranActivity extends Fragment {
 		EditText description = (EditText) getActivity().findViewById(R.id.description);
 		editText.setText("");
 		description.setText("");
-		txtTanggal.setText("");
+		txtTanggal.setText(getNow);
 	}
 //
 	private void showDatePicker() {

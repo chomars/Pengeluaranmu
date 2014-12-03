@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context="apps.chomars.pengeluaranmu.DisplayPemasukanActivity" >
+    tools:context="apps.chomars.pengeluaranmu.DisplayPengeluaranActivity" >
 
     <LinearLayout
         android:id="@+id/header"
@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:background="#00AEEF"
             android:textColor="#fff"
-            android:text="Income"
+            android:text="Spending"
             android:textSize="17sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -51,7 +51,8 @@
         <ListView
             android:id="@+id/months_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:dividerHeight="1dip" >
         </ListView>
     </LinearLayout>
 

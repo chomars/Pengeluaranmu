@@ -1,0 +1,9 @@
+pi should be 36 x 36
+
+mdpi should be 48 x 48
+
+hdpi should be 72 x 72
+
+xhdpi should be 96 x 96
+
+xxhdpi should be 144 x 144

@@ -80,7 +80,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }else{
          selectQuery = Query;
         }
-        Log.d(Query, selectQuery);
+       // Log.d(Query, selectQuery);
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
  

@@ -11,6 +11,8 @@
         <item>Input Pemasukan</item>
         <item>Daftar Pemasukan</item>
         <item>Rekap </item>
+        <item>Export Data</item>
+        <item>Register</item>
     </string-array>
 
     <string name="drawer_open"></string>
@@ -20,5 +22,8 @@
     <string name="title_activity_display_rekap">DisplayRekapActivity</string>
     <string name="title_activity_menu">MenuActivity</string>
     <string name="banner_ad_unit_id">ca-app-pub-7753173895578171/3524640693</string>
+    <string name="title_activity_exportdata">Exportdata</string>
+    <string name="title_activity_export_data">ExportData</string>
+    <string name="title_activity_register">RegisterActivity</string>
 
 </resources>

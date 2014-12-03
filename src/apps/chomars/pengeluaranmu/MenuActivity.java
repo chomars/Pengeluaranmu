@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
 
 
 import com.google.android.gms.ads.AdRequest;
@@ -42,15 +44,15 @@ public class MenuActivity extends Activity {
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
+	
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_menu);
 
-		mTitle = "Daftar Pengeluaran";
-
+//		mTitle = "Daftar Pengeluaran";
+		mTitle = "Rekap";
 		getActionBar().setTitle(mTitle);
-		DisplayPengeluaranActivity fragment = new DisplayPengeluaranActivity();
+		DisplayRekapActivity fragment = new DisplayRekapActivity();
 		FragmentManager fragmentManager = getFragmentManager();
 
 		FragmentTransaction ft = fragmentManager.beginTransaction();
@@ -83,7 +85,7 @@ public class MenuActivity extends Activity {
 
 			public void onDrawerOpened(View drawerView) {
 
-				getActionBar().setTitle("Pengeluaran Mu");
+				getActionBar().setTitle("Manajemen Keuangan");
 
 				invalidateOptionsMenu();
 
@@ -174,6 +176,17 @@ public class MenuActivity extends Activity {
 
 					ft.commit();
 
+				} else if (mTitle.equals("Register")) {
+					RegisterActivity fragment = new RegisterActivity();
+					FragmentManager fragmentManager = getFragmentManager();
+					// Creating a fragment transaction
+					FragmentTransaction ft = fragmentManager.beginTransaction();
+					// Adding a fragment to the fragment transaction
+					ft.replace(R.id.content_frame, fragment);
+					// Committing the transaction
+
+					ft.commit();
+
 				}
 				else if (mTitle.equals("Input Pemasukan")) {
 					FormPemasukanActivity fragment = new FormPemasukanActivity();
@@ -186,6 +199,19 @@ public class MenuActivity extends Activity {
 
 					ft.commit();
 				}
+				else if (mTitle.equals("Export Data")) {
+					ExportData fragment = new ExportData();
+					FragmentManager fragmentManager = getFragmentManager();
+					// Creating a fragment transaction
+					FragmentTransaction ft = fragmentManager.beginTransaction();
+					// Adding a fragment to the fragment transaction
+					ft.replace(R.id.content_frame, fragment);
+					// Committing the transaction
+
+					ft.commit();
+
+				}
+				
 					else {
 
 				}

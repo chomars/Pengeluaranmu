@@ -38,111 +38,125 @@ import android.widget.DatePicker;
 
 public class FormPemasukanActivity extends Fragment {
 
-	
-
 	static final int TIME_DIALOG_ID = 0;
 	private EditText txtTanggal;
 	private Button btnSave;
 	static final int DATE_DIALOG_ID = 1;
-	private String[] arrMonth = { "01","02", "03", "04", "05", "06", "07",
-			"08", "09", "10", "11", "12",};
+	private String[] arrMonth = { "01", "02", "03", "04", "05", "06", "07",
+			"08", "09", "10", "11", "12", };
 
 	private View v;
 	private String inputdate;
+	private String getNow;
 	@Override
-//	
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+	//
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-         v = inflater.inflate(R.layout.activity_pemasukan, container, false);
-        txtTanggal = (EditText) v.findViewById(R.id.tanggal);    
-        btnSave = (Button) v.findViewById(R.id.button1);
-       
-        
-        		txtTanggal.setOnClickListener(new OnClickListener() {
+		v = inflater.inflate(R.layout.activity_pemasukan, container, false);
+		txtTanggal = (EditText) v.findViewById(R.id.tanggal);
+		btnSave = (Button) v.findViewById(R.id.button1);
+		SimpleDateFormat now = new SimpleDateFormat("yyyy-MM-dd");
+		getNow = now.format(Calendar.getInstance().getTime());
+		txtTanggal.setText(getNow);
+		txtTanggal.setOnClickListener(new OnClickListener() {
 
-        			   @Override
-        			   public void onClick(View v) {
-        			    showDatePicker();
-        			   }
-    			  });
-        
-       btnSave.setOnClickListener(new View.OnClickListener() {
-		
-		@Override
-		public void onClick(View arg0) {
-			// TODO Auto-generated method stub
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			 inputdate = df.format(Calendar.getInstance().getTime());
-			DatabaseHandler db = new DatabaseHandler(getActivity());
-			EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
-			EditText description = (EditText) getActivity().findViewById(R.id.description);
-			int spending = Integer.parseInt(editText.getText().toString());
-			String descriptionText = description.getText().toString();
-			String type = "1";
-			String trxdate = txtTanggal.getText().toString();
-			db.addSpending(new Spending("Chomars", spending, descriptionText,inputdate ,
-					type,trxdate));
-			Toast.makeText(getActivity(), "Saved", Toast.LENGTH_SHORT).show();
-			clear();
+			@Override
+			public void onClick(View v) {
+				showDatePicker();
 			}
-       });
-        
-        return v;
-       
+		});
 
-    }
+		btnSave.setOnClickListener(new View.OnClickListener() {
 
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				SimpleDateFormat df = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				inputdate = df.format(Calendar.getInstance().getTime());
+				DatabaseHandler db = new DatabaseHandler(getActivity());
+				EditText editText = (EditText) getActivity().findViewById(
+						R.id.editText1);
+				EditText description = (EditText) getActivity().findViewById(
+						R.id.description);
+
+				String SpendingText = editText.getText().toString();
+				String descriptionText = description.getText().toString();
+				String type = "1";
+				String trxdate = txtTanggal.getText().toString();
+				if (descriptionText.equals("") || trxdate.equals("")
+						|| SpendingText.equals("")) {
+
+					Toast.makeText(getActivity(), "Harap diisi",
+							Toast.LENGTH_SHORT).show();
+				} else {
+					int spending = Integer.parseInt(SpendingText);
+					db.addSpending(new Spending("Chomars", spending,
+							descriptionText, inputdate, type, trxdate));
+
+					Toast.makeText(getActivity(), "Disimpan",
+							Toast.LENGTH_SHORT).show();
+
+					clear();
+				}
+			}
+		});
+
+		return v;
+
+	}
 
 	public void clear() {
-		EditText editText = (EditText) getActivity().findViewById(R.id.editText1);
-		EditText description = (EditText) getActivity().findViewById(R.id.description);
+		EditText editText = (EditText) getActivity().findViewById(
+				R.id.editText1);
+		EditText description = (EditText) getActivity().findViewById(
+				R.id.description);
 		editText.setText("");
 		description.setText("");
-		txtTanggal.setText("");
+		txtTanggal.setText(getNow);
 	}
-//
-//	@Override
+
+	//
+	// @Override
 	private void showDatePicker() {
-		  DatePickerFragment date = new DatePickerFragment();
-		  /**
-		   * Set Up Current Date Into dialog
-		   */
-		  Calendar calender = Calendar.getInstance();
-		  Bundle args = new Bundle();
-		  args.putInt("year", calender.get(Calendar.YEAR));
-		  args.putInt("month", calender.get(Calendar.MONTH));
-		  args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
-		  date.setArguments(args);
-		  /**
-		   * Set Call back to capture selected date
-		   */
-		  date.setCallBack(ondate);
-		  date.show(getFragmentManager(), "Date Picker");
-		 }
+		DatePickerFragment date = new DatePickerFragment();
+		/**
+		 * Set Up Current Date Into dialog
+		 */
+		Calendar calender = Calendar.getInstance();
+		Bundle args = new Bundle();
+		args.putInt("year", calender.get(Calendar.YEAR));
+		args.putInt("month", calender.get(Calendar.MONTH));
+		args.putInt("day", calender.get(Calendar.DAY_OF_MONTH));
+		date.setArguments(args);
+		/**
+		 * Set Call back to capture selected date
+		 */
+		date.setCallBack(ondate);
+		date.show(getFragmentManager(), "Date Picker");
+	}
 
-		 OnDateSetListener ondate = new OnDateSetListener() {
-		
-		  public void onDateSet(DatePicker view, int mYear, int mMonth,
-		    int mDay) {
-			  String Day;
-			  String Month;
-			  if(mDay < 10){
-				  Day = "0"+mDay;
-			  }else{
-				  Day =  String.valueOf(mDay);
-			  }
-			  mMonth = mMonth + 1;
-			  if(mMonth <10){
-				  Month = "0"+mMonth;
-			  }else{
-				  Month = String.valueOf(mMonth);
-			  }
-			  
-			  txtTanggal.setText( String.valueOf(mYear) + "-" +Month
-		       + "-" + Day );
-		 
-		  }
-		 };
+	OnDateSetListener ondate = new OnDateSetListener() {
 
+		public void onDateSet(DatePicker view, int mYear, int mMonth, int mDay) {
+			String Day;
+			String Month;
+			if (mDay < 10) {
+				Day = "0" + mDay;
+			} else {
+				Day = String.valueOf(mDay);
+			}
+			mMonth = mMonth + 1;
+			if (mMonth < 10) {
+				Month = "0" + mMonth;
+			} else {
+				Month = String.valueOf(mMonth);
+			}
+
+			txtTanggal.setText(String.valueOf(mYear) + "-" + Month + "-" + Day);
+
+		}
+	};
 
 }

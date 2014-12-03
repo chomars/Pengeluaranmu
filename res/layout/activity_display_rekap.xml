@@ -2,26 +2,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="apps.chomars.pengeluaranmu.DisplayRekapActivity" >
 
-    <TextView
-        android:id="@+id/rekapdetail"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="#666"
-        android:gravity="center_horizontal"
-        android:padding="7dp"
-        android:text="Rekap"
-        android:textColor="#fff"
-        android:textSize="15dp" />
-
-    <ListView
-        android:id="@+id/months_list_rekap"
+    <RelativeLayout
+        android:id="@+id/topContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rekapdetail" >
-    </ListView>
+        android:orientation="horizontal" >
+
+        <Spinner
+            android:id="@+id/dimension"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topContainer"
+        android:orientation="vertical" >
+
+        <TableLayout
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#00AEEF"
+            android:shrinkColumns="*"
+            android:stretchColumns="*"
+            android:color="#ffffff" >
+
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00AEEF"
+                    android:padding="4dip"
+                    android:text="Date"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00AEEF"
+                    android:gravity="center"
+                    android:padding="4dip"
+                    android:text="Income"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00AEEF"
+                    android:gravity="center"
+                    android:padding="4dip"
+                    android:text="Outcome"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#00AEEF"
+                    android:gravity="center"
+                    android:padding="4dip"
+                    android:text="Balance"
+                    android:textColor="#ffffff"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
+
+        <ListView
+            android:layout_below="@+id/header"
+            android:id="@+id/months_list_rekap"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
+    </RelativeLayout>
 
 </RelativeLayout>

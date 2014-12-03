@@ -47,13 +47,13 @@ public class DisplayPengeluaranActivity extends Fragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View v = inflater.inflate(R.layout.activity_display_message, container,
+		View v = inflater.inflate(R.layout.activity_display_pengeluaran, container,
 				false);
 		final DatabaseHandler db = new DatabaseHandler(getActivity());
 		String strFormat = "#,###";
 		DecimalFormat df = new DecimalFormat(strFormat,
 				new DecimalFormatSymbols(Locale.GERMAN));
-		Query = "SELECT * FROM spending_money where type = '2'";
+		Query = "SELECT * FROM spending_money where type = '2' order by trx_date desc ,input_date desc";
 		List<Spending> spending = db.getAllSpending(Query);
 		spendingArr = new String[spending.size()];
 		descriptionArr = new String[spending.size()];
@@ -64,21 +64,21 @@ public class DisplayPengeluaranActivity extends Fragment {
 		for (Spending cn : spending) {
 
 			Double money = Double.valueOf(cn.getMoney());
-			spendingArr[i] = "Rp. " + df.format(money);
+			spendingArr[i] = df.format(money);
 			descriptionArr[i] = cn.getDescription();
-			// inputDateArr[i] = DateFormat.DateFormat("1", cn.getDate());
-			inputDateArr[i] = cn.getTrxDate();
+			inputDateArr[i] = DateFormat.DateFormat("5", cn.getTrxDate());
+			//inputDateArr[i] = cn.getTrxDate();
 			typeArr[i] = cn.getType();
 			idArr[i] = cn.getID();
 			i++;
 		}
 
-		CustomList adapter = new CustomList(getActivity(), spendingArr,
-				descriptionArr, inputDateArr, typeArr);
-		TextView SpendingAll = (TextView) v.findViewById(R.id.spendingAll);
+		final CustomList adapter = new CustomList(getActivity(),  inputDateArr,
+				descriptionArr,spendingArr, typeArr);
+//		TextView SpendingAll = (TextView) v.findViewById(R.id.spendingAll);
 		Double AllSpending = Double.valueOf(db.sumSpendingAll());
-		SpendingAll.setText("Total Pengeluaran Mu Rp. "
-				+ df.format(AllSpending));
+//		SpendingAll.setText("Total Pengeluaran Mu Rp. "
+//				+ df.format(AllSpending));
 		monthsListView = (ListView) v.findViewById(R.id.months_list);
 		adapter.notifyDataSetChanged();
 		monthsListView.setAdapter(adapter);
@@ -103,7 +103,10 @@ public class DisplayPengeluaranActivity extends Fragment {
 										// TODO Auto-generated method stub
 										db.deleteSpending(new Spending(
 												idArr[position]));
-
+										adapter.remove(String.valueOf(position));
+									    adapter.notifyDataSetChanged();
+					                    adapter.notifyDataSetInvalidated();
+					                    monthsListView.setAdapter(adapter);
 									}
 								});
 						adb.setNegativeButton("cancel",
@@ -126,46 +129,6 @@ public class DisplayPengeluaranActivity extends Fragment {
 	}
 
 	
-	public void getDataListView(View v) {
-		DatabaseHandler db = new DatabaseHandler(getActivity());
-		String strFormat = "#,###";
-		DecimalFormat df = new DecimalFormat(strFormat,
-				new DecimalFormatSymbols(Locale.GERMAN));
-
-		List<Spending> Ospending = db.getAllSpending(Query);
-		String[] OspendingArr = new String[Ospending.size()];
-		String[] OdescriptionArr = new String[Ospending.size()];
-		String[] OinputDateArr = new String[Ospending.size()];
-		String[] OtypeArr = new String[Ospending.size()];
-		final int[] OidArr = new int[Ospending.size()];
-
-		for (Spending Ocn : Ospending) {
-			String Ocobatanggal = Ocn.getDate();
-			String[] OSplitSpasi = Ocobatanggal.split(" ");
-			String[] OSplitTanggal = OSplitSpasi[0].split("-");
-			String OTanggalFormat = OSplitTanggal[2] + " " + OSplitTanggal[1]
-					+ " " + OSplitTanggal[0];
-
-			Double Omoney = Double.valueOf(Ocn.getMoney());
-
-			OspendingArr[i] = "Rp. " + df.format(Omoney);
-			OdescriptionArr[i] = Ocn.getDescription();
-			OinputDateArr[i] = OTanggalFormat;
-			OtypeArr[i] = Ocn.getType();
-			OidArr[i] = Ocn.getID();
-			i++;
-		}
-
-		final CustomList Oadapter = new CustomList(getActivity(), OspendingArr,
-				OdescriptionArr, OinputDateArr, OtypeArr);
-		TextView OSpendingAll = (TextView) v.findViewById(R.id.spendingAll);
-		Double OAllSpending = Double.valueOf(db.sumSpendingAll());
-		OSpendingAll.setText("Total Pengeluaran Mu Rp. "
-				+ df.format(OAllSpending));
-		ListView OmonthsListView = (ListView) v.findViewById(R.id.months_list);
-		Oadapter.notifyDataSetChanged();
-		OmonthsListView.setAdapter(Oadapter);
-
-	}
+	
 	
 }

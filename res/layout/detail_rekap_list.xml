@@ -1,37 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+<ScrollView android:layout_width="match_parent"
+ android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  >
+<TableLayout 
 
-    <TextView
-        android:id="@+id/inputDateRekap"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#333"
-        android:padding="1dp"      
-        android:textColor="#fff"
-        android:textSize="14dp" />
-	<TextView
-        android:id="@+id/incomeRekap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
-        android:text="spending"
-        android:textColor="#3b942a"
-        android:textSize="12dp" />
-    <TextView
-        android:id="@+id/spendingRekap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
-        android:text="spending"
-        android:textColor="#a31313"
-        android:textSize="12dp" />
-      <TextView
-        android:id="@+id/balanceRekap"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"        
-        android:text="spending"
-        android:textColor="#b98218"
-        android:textSize="12dp" />
-
-</LinearLayout>
+    android:layout_width="match_parent" 
+    android:layout_height="wrap_content" 
+    android:shrinkColumns="*"  android:stretchColumns="*" android:background="#ffffff"> 
+    
+    <!-- Row 1 with single column -->
+    <TableRow 
+        android:layout_height="wrap_content" 
+        android:layout_width="fill_parent" 
+        android:gravity="center_horizontal">  
+        <TextView 
+            android:id="@+id/inputDateRekap"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+             android:padding="3dip" 
+            android:textSize="15sp"
+            android:textColor="#000"/>  
+              <TextView 
+            android:id="@+id/incomeRekap"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:textSize="15sp"  
+            android:padding="3dip" 
+            android:textColor="#6EAC6B" android:gravity="right"/>  
+             <TextView 
+                 android:id="@+id/spendingRekap"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:textSize="15sp" 
+            android:padding="3dip" 
+            android:textColor="#842523"
+            android:gravity="right"/>  
+             <TextView 
+                      android:id="@+id/balanceRekap"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:textSize="15sp"  
+            android:padding="3dip"
+            android:textColor="#3B59A4"
+            android:gravity="right"/>  
+    </TableRow>  
+    </TableLayout>
+   </ScrollView>
